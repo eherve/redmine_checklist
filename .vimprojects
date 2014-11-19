@@ -1,0 +1,88 @@
+Redmine_Checklist=. CD=. filter="*.json *.js *.html *.css *.erb *.rb *.yml" {
+ init.rb
+  App=app {
+   Controllers=controllers {
+    checklists_controller.rb
+   }
+   Helpers=helpers {
+    checklists_helper.rb
+   }
+   Models=models {
+    checklist.rb
+   }
+   Views=views {
+   }
+  }
+ Assets=assets {
+  Javascripts=javascripts {
+   checklists.js
+  }
+  Stylesheets=stylesheets {
+   checklists.css
+  }
+ }
+ Config=config {
+  routes.rb
+   Locales=locales {
+    bg.yml
+     de.yml
+     en.yml
+     es.yml
+     fr.yml
+     ja.yml
+     ko.yml
+     pl.yml
+     ru.yml
+     sk.yml
+     uk.yml
+     zh.yml
+   }
+   }
+ Db=db {
+  Migrate=migrate {
+   001_create_checklists.rb
+    002_add_time_stamps_to_checklists.rb
+  }
+ }
+ Lib=lib {
+  Redmine_checklists=redmine_checklists {
+   redmine_checklists.rb
+    Hooks=hooks {
+     controller_issue_hook.rb
+      views_issues_hook.rb
+    }
+   Patches=patches {
+    add_helpers_for_checklists_patch.rb
+     compatibility_patch.rb
+     issue_patch.rb
+     issues_controller_patch.rb
+     Compatibility=compatibility {
+      2.1=2.1 {
+       redmine_api_test_patch.rb
+      }     
+     }
+   }
+  }
+ }
+ Doc=doc filter="*" {
+  CHANGELOG
+   COPYING
+   LICENSE
+ }
+ Test=test {
+  test_helper.rb
+   Fixtures=fixtures {
+    checklists.yml
+   }
+  Functional=functional {
+   checklists_controller_test.rb
+    issues_controller_test.rb
+  }
+  Integration=integration {
+   common_issue_test.rb
+  }
+  Unit=unit {
+   checklist_test.rb
+  }
+ }
+}
