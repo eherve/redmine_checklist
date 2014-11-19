@@ -1,0 +1,21 @@
+<%  if !@issue.blank? &&  @issue.checklists.any? && User.current.allowed_to?(:view_checklists, @project) %>
+<hr />
+<div id="checklist">
+
+  <p><strong><%=l(:label_checklist_plural)%></strong></p>
+
+  <% if checklist_specified_ratio > 100 %>
+      <p style="color:orange;"><strong><%=l(:label_checklist_ratio_sum_over_100)%></strong></p>
+  <% end %>
+
+  <ul id="checklist_items">
+
+  <% @issue.checklists.each do |checklist_item| %>
+    <%= render :partial => 'checklists/checklist_item', :object => checklist_item %>
+  <% end %>
+  
+  </ul>
+</div>
+
+<% end %>
+

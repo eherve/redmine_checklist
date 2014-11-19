@@ -1,0 +1,11 @@
+# English strings go here for Rails i18n
+en:
+  label_checklist_plural: Checklist
+  field_checklist: Checklist
+  label_checklist_save_log: Save changes to issue log
+  label_checklist_done_ratio: Set issue done ratio
+  label_checklist_ratio_over_100: The ratio is over 100%
+  label_checklist_ratio_sum_over_100: The ratio sum is over 100%
+  permission_view_checklists: View checklist
+  permission_done_checklists: Done checklist items
+  permission_edit_checklists: Edit checklist items
