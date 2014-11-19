@@ -4,7 +4,10 @@
                     :data_url => url_for( {:controller => "checklists", :action => "done", :id => checklist_item.id} ), :class => 'checklist-checkbox'
   %>
   <%= textilizable(checklist_item, :subject).gsub(/<\/?(p|h\d+|li|ul)>/, '').strip.html_safe %>
-  <% if checklist_item.ratio != nil && checklist_item.ratio > 100 %>
-    <span style="color:orange;"><%=l(:label_checklist_ratio_over_100)%></span>
+  <% if checklist_item.ratio != nil %>
+      <span> - <%= textilizable(checklist_item, :ratio).gsub(/<\/?(p|h\d+|li|ul)>/, '').strip.html_safe %>% </span>
+      <% if checklist_item.ratio > 100 %>
+          <span style="color:orange;"><%=l(:label_checklist_ratio_over_100)%></span>
+      <% end %>
   <% end %>
 </li>

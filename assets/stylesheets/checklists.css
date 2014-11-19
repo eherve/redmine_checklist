@@ -30,11 +30,19 @@ span.checklist-remove:hover  {opacity: 1;}
 
 span.checklist-edit-box input {
     margin-right: 6px;
-    width: 40%;
     -moz-transition: top 0.2s;
     -o-transition: top 0.2s;
     -webkit-transition: top 0.2s;
     transition: top 0.2s;
+}
+
+
+span.checklist-edit-box input.edit-box-subject {
+    width: 40%;
+}
+
+span.checklist-edit-box input.edit-box-ratio {
+    width: 40px;
 }
 
 .invalid span.checklist-edit-box input {
@@ -57,6 +65,7 @@ span.checklist-edit-reset-button {
 }
 
 span.checklist-subject {cursor: pointer;}
+span.checklist-ratio {cursor: pointer;}
 
 span.checklist-item.show .checklist-edit,
 span.checklist-item.show .checklist-edit-only,
@@ -69,5 +78,4 @@ span.checklist-item.new .checklist-show-or-edit,
 span.checklist-item.new .checklist-show-only,
 span.checklist-item.edit .checklist-show-only {
   display: none;
-}
 }

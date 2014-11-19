@@ -23,3 +23,4 @@ class AddTimeStampsToChecklists < ActiveRecord::Migration
     add_column :checklists, :updated_at, :timestamp
   end
 end
+

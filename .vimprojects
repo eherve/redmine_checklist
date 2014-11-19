@@ -1,4 +1,4 @@
-Redmine_Checklist=. CD=. filter="*.json *.js *.html *.css *.erb *.rb *.yml" {
+Redmine_Checklist=. CD=. filter="*.json *.js *.html *.css *.erb *.rb *.yml *.md" {
  init.rb
   App=app {
    Controllers=controllers {
@@ -11,6 +11,18 @@ Redmine_Checklist=. CD=. filter="*.json *.js *.html *.css *.erb *.rb *.yml" {
     checklist.rb
    }
    Views=views {
+    Checklists=checklists{
+     _checklist_item.html.erb
+      done.js.erb
+    }
+    Issues=issues {
+    _checklist.html.erb
+    _checklist_fields.html.erb
+    _checklist_form.html.erb
+    }
+    Settings=settings {
+    _checklists.html.erb
+    }
    }
   }
  Assets=assets {
@@ -41,7 +53,8 @@ Redmine_Checklist=. CD=. filter="*.json *.js *.html *.css *.erb *.rb *.yml" {
  Db=db {
   Migrate=migrate {
    001_create_checklists.rb
-    002_add_time_stamps_to_checklists.rb
+   002_add_time_stamps_to_checklists.rb
+   003_add_ratio_to_checklists.rb
   }
  }
  Lib=lib {

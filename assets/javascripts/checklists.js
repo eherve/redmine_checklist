@@ -106,7 +106,7 @@ Redmine.Checklist = $.klass({
     var new_id = new Date().getTime();
     var regexp = new RegExp("new_checklist", "g");
     appended = $(this.content.replace(regexp, new_id)).appendTo(this.root)
-    appended.find('.edit-box').focus()
+    appended.find('.edit-box-subject').focus()
   },
 
   findSpan: function(event) {
@@ -115,16 +115,20 @@ Redmine.Checklist = $.klass({
 
   transformItem: function(event) {
     checklistItem = this.findSpan(event)
-    val = checklistItem.find('input.edit-box').val()
+    val = checklistItem.find('input.edit-box-subject').val()
     checklistItem.find('.checklist-subject').text(val)
     checklistItem.find('.checklist-subject-hidden').val(val)
+    val = checklistItem.find('input.edit-box-ratio').val()
+    checklistItem.find('.checklist-ratio').text(val)
+    checklistItem.find('.checklist-ratio-hidden').val(val)
     checklistItem.removeClass('edit')
     checklistItem.removeClass('new')
     checklistItem.addClass('show')
   },
 
   resetItem: function(item) {
-    item.find('input.edit-box').val(item.find('checklist-subject-hidden').val() )
+    item.find('input.edit-box-subject').val(item.find('checklist-subject-hidden').val() )
+    item.find('input.edit-box-ratio').val(item.find('checklist-ratio-hidden').val() )
     item.removeClass('edit')
     item.addClass('show')
   },
@@ -136,11 +140,11 @@ Redmine.Checklist = $.klass({
   },
 
   canSave: function(span) {
-    return (!span.hasClass('invalid')) && (span.find('input.edit-box').val().length > 0)
+    return (!span.hasClass('invalid')) && (span.find('input.edit-box-subject').val().length > 0)
   },
 
   onEnterInNewChecklistItemForm: function() {
-    this.root.on('keydown', 'input.edit-box', $.proxy(function(event) {
+    this.root.on('keydown', 'input.edit-box-subject, input.edit-box-ratio', $.proxy(function(event) {
       if (event.which == 13) {
         this.preventEvent(event)
         span = this.findSpan(event)
@@ -212,8 +216,9 @@ Redmine.Checklist = $.klass({
       span = this.findSpan(event)
       span.addClass('edit')
       span.removeClass('show')
-      span.find('.edit-box').val(span.find('.checklist-subject-hidden').val())
-      span.find('.edit-box').focus()
+      span.find('.edit-box-subject').val(span.find('.checklist-subject-hidden').val())
+      span.find('.edit-box-ratio').val(span.find('.checklist-ratio-hidden').val())
+      span.find('.edit-box-subject').focus()
     }, this));
     this.root.on('click', '.checklist-edit-save-button', $.proxy(function(event){
       this.transformItem(event)
@@ -243,7 +248,7 @@ Redmine.Checklist = $.klass({
   },
 
   enableUniquenessValidation: function() {
-    this.root.on('keyup', 'input.edit-box', $.proxy(function(event) {
+    this.root.on('keyup', 'input.edit-box-subject', $.proxy(function(event) {
       value = $(event.target).val()
       span = this.findSpan(event)
       span.removeClass('invalid')
@@ -251,7 +256,7 @@ Redmine.Checklist = $.klass({
         e = $(elem)
         if (!e.is('.edit') && !e.is('.new'))
         {
-          if ( (value == e.find('.edit-box').val()) )
+          if ( (value == e.find('.edit-box-subject').val()) )
           {
             span.addClass('invalid')
           }
