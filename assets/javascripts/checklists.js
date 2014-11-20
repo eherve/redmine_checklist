@@ -119,7 +119,7 @@ Redmine.Checklist = $.klass({
     checklistItem.find('.checklist-subject').text(val)
     checklistItem.find('.checklist-subject-hidden').val(val)
     val = checklistItem.find('input.edit-box-ratio').val()
-    checklistItem.find('.checklist-ratio').text(val)
+    if (val != null && val != '') { checklistItem.find('.checklist-ratio').text(" - " + val + "%"); }
     checklistItem.find('.checklist-ratio-hidden').val(val)
     checklistItem.removeClass('edit')
     checklistItem.removeClass('new')
@@ -140,7 +140,11 @@ Redmine.Checklist = $.klass({
   },
 
   canSave: function(span) {
-    return (!span.hasClass('invalid')) && (span.find('input.edit-box-subject').val().length > 0)
+    var ratio = span.find('input.edit-box-ratio').val();
+    var ratioValid = ratio == null || ratio == '' ||
+      (!isNaN(ratio = parseInt(ratio)) && ratio >= 0 && ratio <= 100 );
+    return (!span.hasClass('invalid')) && (span.find('input.edit-box-subject').val().length > 0) &&
+      ratioValid
   },
 
   onEnterInNewChecklistItemForm: function() {
@@ -265,6 +269,19 @@ Redmine.Checklist = $.klass({
     }, this))
   },
 
+  enableRatioValidation: function() {
+    this.root.on('keyup', 'input.edit-box-ratio', $.proxy(function(event) {
+      var ratio = $(event.target).val()
+      span = this.findSpan(event)
+      span.removeClass('invalid')
+      if (ratio == null || ratio == '') { return; }
+      if (isNaN(ratio = parseInt(ratio)) || ratio < 0 || ratio > 100) {
+        span.addClass('invalid')
+        return;
+      }
+    }, this))
+  },
+
   init: function(element) {
     this.root = element
     this.content = element.data('checklist-fields')
@@ -277,6 +294,7 @@ Redmine.Checklist = $.klass({
     this.onCheckboxChanged()
     this.onChangeCheckbox()
     this.enableUniquenessValidation()
+    this.enableRatioValidation()
   }
 
 })

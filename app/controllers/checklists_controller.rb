@@ -104,8 +104,14 @@ class ChecklistsController < ApplicationController
             if c.is_done then done_unspecified += 1 end
           end
         }
-        unspecified_ratio = total_unspecified > 0 ? ((100 - specified_rate) / total_unspecified) : 0
-        done_unspecified = total_unspecified > 0 ? (((100 - specified_rate) / total_unspecified) * done_unspecified) : 0
+        if done_unspecified > 0 && done_unspecified == total_unspecified then
+          done_unspecified = 100 - specified_rate
+        elsif total_unspecified > 0
+          unspecified_ratio = ((100 - specified_rate) / total_unspecified)
+          done_unspecified = ((100 - specified_rate) / total_unspecified) * done_unspecified
+        else
+          done_unspecified = 0
+        end
         done_ratio = done_specified + [done_unspecified, 0].max
         @checklist_item.issue.done_ratio = [100, [0, done_ratio].max].min
         @checklist_item.issue.save

@@ -7,14 +7,12 @@
     <%= text_field_tag 'subject', f.object.subject, :class => 'edit-box-subject'%>
     <%= f.hidden_field :subject, :class => 'checklist-subject-hidden' %>
   </span>
-  <% if f.object.ratio != nil %>
-      <span class = "checklist-show checklist-ratio <%= done_css(f) %>">
-          - <%= f.object.ratio %>%
-      </span>
-  <% end %>
+  <span class = "checklist-show checklist-ratio <%= done_css(f) %>">
+      <%if f.object.ratio != nil %>- <%= f.object.ratio %>%<% end %>
+  </span>
   <span class = "checklist-edit checklist-new checklist-edit-box">
     Ratio:
-    <%= number_field_tag 'ratio', f.object.ratio, in:0...100, :class => 'edit-box-ratio'%>
+    <%= number_field_tag 'ratio', f.object.ratio, in:0...101, :class => 'edit-box-ratio'%>
     <%= f.hidden_field :ratio, :class => 'checklist-ratio-hidden' %>
     %
   </span>
